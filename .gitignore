@@ -1,0 +1,7 @@
+.ssh
+.env
+.terraform
+*.tfstate
+*.tfstate.backup
+*.tfplan
+*.lock.info

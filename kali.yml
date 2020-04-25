@@ -1,0 +1,24 @@
+#cloud-config
+package_update: false
+disable_root: false
+
+hostname: ${hostname}
+
+users:
+  - name: root
+    ssh_authorized_keys:
+      - ${interviewer_key}
+      - ${candidate_key}
+
+write_files:
+- path: /etc/motd
+  encoding: b64
+  content: Ll9fICAgICAgICBfXyAgICAgICAgICAgICAgICAgICAgIC5fXyAgICAgICAgICAgICAgIAp8X198IF9fX19fLyAgfF8gIF9fX19fX19fX19fX19fICBffF9ffCBfX19fX18gIF8gIF9fCnwgIHwvICAgIFwgICBfX1wvIF9fIFxfICBfXyBcICBcLyAvICB8LyBfXyBcIFwvIFwvIC8KfCAgfCAgIHwgIFwgIHwgXCAgX19fL3wgIHwgXC9cICAgL3wgIFwgIF9fXy9cICAgICAvIAp8X198X19ffCAgL19ffCAgXF9fXyAgPl9ffCAgICBcXy8gfF9ffFxfX18gID5cL1xfLyAgCiAgICAgICAgXC8gICAgICAgICAgXC8gICAgICAgICAgICAgICAgICAgIFwvICAgICAgICAKCg==
+  owner: root:root
+  permissions: '0644'
+
+- path: /root/.bashrc
+  encoding: b64
+  content: WyAteiAiJFBTMSIgXSAmJiByZXR1cm4KUFMxPScke2RlYmlhbl9jaHJvb3Q6KygkZGViaWFuX2Nocm9vdCl9XFtcMDMzWzAxOzMxbVxdXHVAXGhcW1wwMzNbMDBtXF06XFtcMDMzWzAxOzM0bVxdXHdcW1wwMzNbMDBtXF1cJCAnCmFsaWFzIGxzPSdscyAtLWNvbG9yPWF1dG8nCg==
+  owner: root:root
+  permissions: '0644'

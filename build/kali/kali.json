@@ -1,0 +1,60 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "ssh_username": "ec2-user",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "{{user `aws_region`}}",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "Kali Linux*",
+        "root-device-type": "ebs"
+      },
+      "owners": ["679593333241"],
+      "most_recent": true
+    },
+    "instance_type": "i3.large",
+    "ami_name": "interview-kali {{timestamp}}"
+  }],
+  "provisioners": [
+      {
+          "type": "file",
+          "source": "./insecure_vncpw",
+          "destination": "/tmp/insecure_vncpw",
+          "pause_before": "10s",
+          "timeout": "30s"
+      },
+      {
+          "type": "file",
+          "source": "./vncboot",
+          "destination": "/tmp/vncboot"
+      },
+
+      {
+          "type": "shell",
+          "execute_command": "sudo sh -c '{{ .Vars }} {{ .Path }}'",
+          "inline":[
+              "apt-get update",
+              "DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' -yqq upgrade",
+              "DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' -yqq install tigervnc-standalone-server",
+              "gem install bundler:1.17.3",
+              "msfdb init",
+              "systemctl enable postgresql",
+              "mkdir /root/.vnc",
+              "chmod 0700 /root/.vnc",
+              "mv /tmp/insecure_vncpw /root/.vnc/passwd",
+              "chmod 0600 /root/.vnc/passwd",
+              "mv /tmp/vncboot /etc/init.d/vncboot",
+              "chmod 0755 /etc/init.d/vncboot",
+              "chown -R root:root /root",
+              "chown root:root /etc/init.d/vncboot",
+              "update-rc.d vncboot defaults"
+          ]
+      }
+  ]
+}

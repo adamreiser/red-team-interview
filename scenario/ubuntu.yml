@@ -1,0 +1,13 @@
+#cloud-config
+package_update: false
+disable_root: false
+repo_upgrade: none
+manage_etc_hosts: true
+
+hostname: ${hostname}
+fqdn: "${hostname}.${domain}"
+
+users:
+  - name: root
+    ssh_authorized_keys:
+      - ${interviewer_key}
