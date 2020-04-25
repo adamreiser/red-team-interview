@@ -14,7 +14,7 @@ exit_cmd() {
     ssh -F ".ssh/${TF_VAR_session}_config" -S ".ssh/${TF_VAR_session}_%h" -O exit "${remote_host}"
 }
 
-TF_VAR_session=$(echo -n "${1}" | cut -d. -f1 | tr -d "\n")
+TF_VAR_session=$(echo -n "${1}" | cut -d. -f1 | tr -d "\\n")
 
 remote_host="${2}"
 

@@ -33,6 +33,21 @@ resource aws_vpc "main" {
   }
 }
 
+resource "aws_vpc_dhcp_options" "main" {
+  domain_name          = var.domain_name
+  domain_name_servers  = ["AmazonProvidedDNS"]
+
+  tags = {
+    role = "interview"
+    session = var.session
+  }
+}
+
+resource "aws_vpc_dhcp_options_association" "main" {
+  vpc_id          = "${aws_vpc.main.id}"
+  dhcp_options_id = "${aws_vpc_dhcp_options.main.id}"
+}
+
 resource "aws_route53_zone" "interview" {
   name = var.domain_name
   force_destroy = true

@@ -12,7 +12,7 @@ elif [ "${1}" = "-h" ] || [ "${1}" = "--help" ]; then
     exit 0
 fi
 
-TF_VAR_session=$(echo -n "${1}" | cut -d. -f1 | tr -d "\n")
+TF_VAR_session=$(echo -n "${1}" | cut -d. -f1 | tr -d "\\n")
 
 echo "Destroying ${TF_VAR_session}..."
 source .env
