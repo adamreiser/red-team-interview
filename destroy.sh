@@ -5,7 +5,7 @@
 set -eu
 
 if [ $# != 1 ]; then
-    echo "${0}: Missing argument: <session UUID>"
+    echo "Usage: ${0} <session UUID>"
     exit 1
 elif [ "${1}" = "-h" ] || [ "${1}" = "--help" ]; then
     echo "Usage: ${0} <session UUID>"
