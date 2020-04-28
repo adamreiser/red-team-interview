@@ -1,10 +1,10 @@
 # Red team interview framework
 
 This is the red team interview scenario framework as prepared for
-Offensive Summit 2020.
+Cisco's Offensive Summit 2020.
 
-For demonstration purposes this just consists of a single kali and
-ubuntu instance.
+The demo scenario consists of a kali jumphost and two simulated
+corporate machines.
 
 ## Initial setup
 

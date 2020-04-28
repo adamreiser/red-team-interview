@@ -147,10 +147,11 @@ resource "aws_key_pair" "interview_key" {
 locals {
   kali_ssh_conf = join("", formatlist("Host kali\n\tHostname %s\n\tUser root\n\tIdentityFile .ssh/${var.session}.pem\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile .ssh/${var.session}_known_hosts\n\tIdentitiesOnly yes\n\n", aws_eip.kali.public_ip))
   ubuntu_ssh_conf = join("", formatlist("Host ubuntu\n\tHostname %s\n\tUser root\n\tIdentityFile .ssh/${var.session}.pem\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile .ssh/${var.session}_known_hosts\n\tProxyJump kali\n\tIdentitiesOnly yes\n\n", module.scenario.ubuntu.private_ip))
+  redhat_ssh_conf = join("", formatlist("Host redhat\n\tHostname %s\n\tUser root\n\tIdentityFile .ssh/${var.session}.pem\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile .ssh/${var.session}_known_hosts\n\tProxyJump kali\n\tIdentitiesOnly yes\n\n", module.scenario.redhat.private_ip))
 }
 
 resource "local_file" "ssh_config" {
   filename = "${path.module}/.ssh/${var.session}_config"
-  content         = join("", [local.kali_ssh_conf, local.ubuntu_ssh_conf])
+  content         = join("", [local.kali_ssh_conf, local.ubuntu_ssh_conf, local.redhat_ssh_conf])
   file_permission = "0600"
 }

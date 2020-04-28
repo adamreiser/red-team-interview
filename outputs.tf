@@ -14,6 +14,10 @@ output "ubuntu" {
     value = { "private ip" = module.scenario.ubuntu.private_ip}
 }
 
+output "redhat" {
+    value = { "private ip" = module.scenario.redhat.private_ip}
+}
+
 /*
 output "nat_gateway_ip" {
     value = { "private ip" = aws_nat_gateway.nat.private_ip}

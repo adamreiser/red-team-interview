@@ -15,7 +15,7 @@ resource "aws_instance" "ubuntu" {
     session = var.session
   }
 
-  user_data = templatefile("${path.module}/ubuntu.yml", { hostname = "ubuntu", domain=var.domain_name, interviewer_key = var.interview_key.public_key })
+  user_data = templatefile("${path.module}/cloud-init.yml", { hostname = "ubuntu", domain=var.domain_name, interviewer_key = var.interview_key.public_key })
 
   network_interface {
     network_interface_id = aws_network_interface.ubuntu.id
