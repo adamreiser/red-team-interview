@@ -14,7 +14,7 @@ Copy `.env.example` to `.env` and enter your
 details. You can leave TF_VAR_candidate_key empty for testing. When
 conducting an interview, this should be the candidate's ssh public key.
 
-Your AWS account must be subscribed to the [kali ami](https://aws.amazon.com/marketplace/pp/B01M26MMTT).
+Your AWS account must be subscribed to the [kali](https://aws.amazon.com/marketplace/pp/B01M26MMTT) and [redhat](https://aws.amazon.com/marketplace/pp/B07JDGZ7KH) AMIs.
 
 Build the custom kali AMI:
 
